@@ -2,7 +2,6 @@ from collections import namedtuple
 
 import math
 
-
 class Point(namedtuple("Point", ["x", "y"])):
 
     __slots__ = ()

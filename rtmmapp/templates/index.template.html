@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='main-style.css')}}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% endblock %}
+
+{% block content %}
+    
+    <div class="container">
+
+    <h1>Rotary Tool Mount Maker</h1>
+
+        <p>Mounting glasses in laser rotary tools can be a frustrating and dificult process resulting in cracked glass, wasted time and frayed nerves.</p>
+
+        <p>With the assistance of <a href="http://msraynsford.blogspot.co.uk/">Martin Raynsford</a>, I have produced this little tool that makes it easy to lasercut a mount that will perfectly fit your glass.</p>
+
+        <p>Simply measure the outer and inner diameters of the lip of your glass and the diameter of the bottom. Enter them into this tool and you will have an SVG file you can lasercut to make a mount.</p>
+
+        <p>All dimensions are in millimeters.</p>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {{ wtf.quick_form(form) }}
+
+        <h2>Attributions</h2>
+        <p class="small">
+        Original mount design used with permission from <a href="http://msraynsford.blogspot.co.uk/">Martin Raynsford</a><br>
+        Site favicon from <a href="https://commons.wikimedia.org/w/index.php?curid=438684">Avatar at Creative Commons</a> under <a href="http://creativecommons.org/licenses/by/2.5" title="Creative Commons Attribution 2.5">CC BY 2.5</a> license. 
+        </p>
+
+    </div>
+
+{% endblock %}

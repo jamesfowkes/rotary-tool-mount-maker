@@ -11,17 +11,12 @@ Options:
   -v --verbose                Turn on verbose output
 """
 
+import sys
 import docopt
 import logging
 
-import svg
-
-HELP_TEXT = [
-    "Cut black paths. Engrave or fast cut blue paths for positioning guides.",
-    "Glue part #2 centrally onto part #1 using engraved/cut guide.",
-    "Glue ring #3 centrally onto part #4 using engraved/cut guide",
-    "Glue 3x mounting parts into slots in #4 on opposite side to ring."
-]
+import rtmmapp.util.util
+import rtmmapp.util.svg
 
 def get_module_logger():
     return logging.getLogger(__name__)
@@ -40,4 +35,10 @@ if __name__ == "__main__":
     bottom_diameter = float(args["<bottom_diameter>"])
     material_thickness = float(args["--material_thickness"])
 
-    print(svg.create_rotary_tool_holder(lip_outer_diameter, lip_inner_diameter, bottom_diameter, material_thickness, HELP_TEXT))
+    error = rtmmapp.util.util.validate_diameters(lip_outer_diameter, lip_inner_diameter, bottom_diameter)
+    if error is None:
+      print(rtmmapp.util.svg.create_rotary_tool_holder(
+        lip_outer_diameter, lip_inner_diameter, bottom_diameter, material_thickness, rtmmapp.util.util.get_help_text()))
+    
+    else:
+      sys.exit("Error: {}".format(error))

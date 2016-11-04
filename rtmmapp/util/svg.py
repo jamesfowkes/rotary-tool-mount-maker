@@ -3,7 +3,7 @@ from collections import namedtuple
 
 from jinja2 import Environment, FileSystemLoader
 
-from geometry import Point, Dimension, Circle
+from rtmmapp.util.geometry import Point, Dimension, Circle
 
 env = Environment(loader=FileSystemLoader('.'))
 
@@ -64,7 +64,7 @@ def create_rotary_tool_holder(lip_outer_diameter, lip_inner_diameter, bottom_dia
         adapter_right_slot_points
     ]
     
-    print(template.render(
+    return template.render(
         document_size=document_size,
         tailstock_mount=tailstock_mount,
         lip_mount=lip_mount,
@@ -74,4 +74,4 @@ def create_rotary_tool_holder(lip_outer_diameter, lip_inner_diameter, bottom_dia
         adapter_slots=adapter_slots,
         material_thickness=material_thickness,
         help_text=help_text
-        ))
+        )
